@@ -4138,8 +4138,11 @@ int initialise_event_info_struct( struct event_info_struct *eis )
 end:
 	FD_ZERO( &eis->rfds );
 	FD_SET( eis->fd, &eis->rfds );
+        // Fixed Constant CPU usage by gnu.io.RXTXPort.eventLoop.
+        // Increased tv_usec from 1000 to 100000.
+        // See: https://github.com/NeuronRobotics/nrjavaserial/issues/36
 	eis->tv_sleep.tv_sec = 0;
-	eis->tv_sleep.tv_usec = 1000;
+	eis->tv_sleep.tv_usec = 100000;
 	eis->initialised = 1;
 	return( 1 );
 fail:
